@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.sensors.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_proximityFragment"
+            app:destination="@id/proximityFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_accelerometerFragment"
+            app:destination="@id/accelerometerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_gyroscopeFragment"
+            app:destination="@id/gyroscopeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_stepCounterFragment"
+            app:destination="@id/stepCounterFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/proximityFragment"
+        android:name="com.example.sensors.ProximityFragment"
+        android:label="fragment_proximity"
+        tools:layout="@layout/fragment_proximity" />
+    <fragment
+        android:id="@+id/accelerometerFragment"
+        android:name="com.example.sensors.AccelerometerFragment"
+        android:label="fragment_motion"
+        tools:layout="@layout/fragment_accelerometer" />
+    <fragment
+        android:id="@+id/gyroscopeFragment"
+        android:name="com.example.sensors.GyroscopeFragment"
+        android:label="fragment_gyroscope"
+        tools:layout="@layout/fragment_gyroscope" />
+    <fragment
+        android:id="@+id/stepCounterFragment"
+        android:name="com.example.sensors.StepCounterFragment"
+        android:label="fragment_step_counter"
+        tools:layout="@layout/fragment_step_counter" />
+</navigation>
