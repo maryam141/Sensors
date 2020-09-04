@@ -38,6 +38,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+      <action
+        android:id="@+id/action_homeFragment_to_lightFragment"
+        app:destination="@id/lightFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/proximityFragment"
@@ -59,4 +66,9 @@
         android:name="com.example.sensors.StepCounterFragment"
         android:label="fragment_step_counter"
         tools:layout="@layout/fragment_step_counter" />
+  <fragment
+    android:id="@+id/lightFragment"
+    android:name="com.example.sensors.LightFragment"
+    android:label="fragment_light"
+    tools:layout="@layout/fragment_light" />
 </navigation>

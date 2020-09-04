@@ -18,7 +18,8 @@ public class HomeFragment extends Fragment {
     Button proximityBtn ;
     Button accelerometerBtn;
     Button gyroscopeBtn ;
-    Button stepCounter ;
+    Button stepCounterBtn;
+    Button lightBtn ;
 
 
 
@@ -38,7 +39,8 @@ public class HomeFragment extends Fragment {
         proximityBtn = view.findViewById(R.id.proximity_btn);
         accelerometerBtn = view.findViewById(R.id.accelerometer_btn);
         gyroscopeBtn = view.findViewById(R.id.gyroscope_btn);
-        stepCounter=view.findViewById(R.id.stepCounter_btn);
+        stepCounterBtn =view.findViewById(R.id.stepCounter_btn);
+        lightBtn = view.findViewById(R.id.light_btn);
         return view ;
     }
 
@@ -66,11 +68,16 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        stepCounter.setOnClickListener(new View.OnClickListener() {
+        stepCounterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_stepCounterFragment);
             }
+        });
+        lightBtn.setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View view) {
+            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_lightFragment);
+          }
         });
     }
 }

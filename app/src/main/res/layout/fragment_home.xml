@@ -79,6 +79,23 @@
         android:textSize="18sp"
         android:background="@drawable/rounded_button"
         android:textColor="#fff"/>
+  <Button
+    android:id="@+id/light_btn"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/stepCounter_btn"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="40dp"
+    android:layout_marginStart="100dp"
+    android:layout_marginEnd="100dp"
+    android:padding="10dp"
+    android:text="Light Sensor"
+    android:textAllCaps="false"
+    android:textStyle="bold"
+    android:textSize="18sp"
+    android:background="@drawable/rounded_button"
+    android:textColor="#fff"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
