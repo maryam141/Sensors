@@ -15,18 +15,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 
-    public class GravityFragment extends Fragment implements SensorEventListener {
+public class GravityFragment extends Fragment implements SensorEventListener {
 
-        SensorManager sensorManager;
-        Sensor sensorGravity;
-        TextView gravityXTV ;
-        TextView gravityYTV ;
-        TextView gravityZTV ;
+      private   SensorManager sensorManager;
+      private   Sensor sensorGravity;
+      private   TextView gravityXTV ;
+      private   TextView gravityYTV ;
+       private TextView gravityZTV ;
+   private boolean isGravityAvaliable ;
 
 
-        @Override
+
+    @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             if (getArguments() != null) {
@@ -59,7 +64,20 @@ import android.widget.TextView;
             sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
             sensorGravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
 
+            checkSensor();
+
         }
+
+    public void checkSensor() {
+        if (sensorGravity != null) {
+            sensorGravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+            isGravityAvaliable = true;
+        } else {
+            Toast.makeText(requireContext(), "Gravity Sensor is not Availiable", Toast.LENGTH_SHORT).show();
+            isGravityAvaliable = false;
+
+        }
+    }
 
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
@@ -67,9 +85,9 @@ import android.widget.TextView;
 
             if (sensorEvent.sensor.getType() == Sensor.TYPE_GRAVITY)
             {
-                gravityXTV.setText("X : " +sensorEvent.values[0]);
-                gravityYTV.setText("Y : "+sensorEvent.values[1]);
-                gravityZTV.setText("Z : "+sensorEvent.values[2]);
+                gravityXTV.setText("X : " +new DecimalFormat("##.#").format(sensorEvent.values[0]));
+                gravityYTV.setText("Y : "+new DecimalFormat("##.#").format(sensorEvent.values[1]));
+                gravityZTV.setText("Z : "+new DecimalFormat("##.#").format(sensorEvent.values[2]));
 
             }
 

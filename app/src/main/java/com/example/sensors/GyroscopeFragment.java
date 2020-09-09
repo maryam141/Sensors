@@ -15,14 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 public class GyroscopeFragment extends Fragment implements SensorEventListener {
 
-    SensorManager sensorManager;
-    Sensor sensorGyroscope;
-    TextView gyroscoperXTV ;
-    TextView gyroscopeYTV ;
-    TextView gyroscopeZTV ;
+   private SensorManager sensorManager;
+    private Sensor sensorGyroscope;
+   private TextView gyroscoperXTV ;
+   private TextView gyroscopeYTV ;
+   private TextView gyroscopeZTV ;
+   private boolean isGyrscopeAvaliable ;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +62,19 @@ public class GyroscopeFragment extends Fragment implements SensorEventListener {
         super.onViewCreated(view, savedInstanceState);
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         sensorGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        checkSensor();
 
+    }
 
+    public void checkSensor() {
+        if (sensorGyroscope != null) {
+            sensorGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+            isGyrscopeAvaliable = true;
+        } else {
+            Toast.makeText(requireContext(), "Gyrscope Sensor is not Availiable", Toast.LENGTH_SHORT).show();
+            isGyrscopeAvaliable = false;
+
+        }
     }
 
     @Override
@@ -66,9 +82,9 @@ public class GyroscopeFragment extends Fragment implements SensorEventListener {
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE)
         {
-            gyroscoperXTV.setText("X : " +sensorEvent.values[0]);
-            gyroscopeYTV.setText("Y : "+sensorEvent.values[1]);
-            gyroscopeZTV.setText("Z : "+sensorEvent.values[2]);
+            gyroscoperXTV.setText("X : " +new DecimalFormat("##.#").format(sensorEvent.values[0]));
+            gyroscopeYTV.setText("Y : "+new DecimalFormat("##.#").format(sensorEvent.values[1]));
+            gyroscopeZTV.setText("Z : "+new DecimalFormat("##.#").format(sensorEvent.values[2]));
 
 
         }

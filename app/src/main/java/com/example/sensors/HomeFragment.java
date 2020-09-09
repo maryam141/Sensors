@@ -15,14 +15,14 @@ import android.widget.Button;
 
 public class HomeFragment extends Fragment {
 
-    Button proximityBtn ;
-    Button accelerometerBtn;
-    Button gyroscopeBtn ;
-    Button stepCounterBtn;
-    Button lightBtn ;
-    Button tempBtn ;
-    Button magnetometerBtn ;
-    Button gravityFragment ;
+  private Button proximityBtn ;
+    private Button accelerometerBtn;
+    private Button gyroscopeBtn ;
+    private Button stepCounterBtn;
+    private Button lightBtn ;
+    private Button tempBtn ;
+    private Button magnetometerBtn ;
+    private Button gravityFragment ;
 
 
 

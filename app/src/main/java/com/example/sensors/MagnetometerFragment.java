@@ -15,18 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 
+public class MagnetometerFragment extends Fragment implements SensorEventListener {
 
-
-    public class MagnetometerFragment extends Fragment implements SensorEventListener {
-
-        SensorManager sensorManager;
-        Sensor magnetometerSensor;
-
-        TextView magnetometerXTV ;
-        TextView magnetometerYTV ;
-        TextView magnetometerZTV ;
+      private   SensorManager sensorManager;
+       private Sensor magnetometerSensor;
+       private TextView magnetometerXTV ;
+       private TextView magnetometerYTV ;
+       private TextView magnetometerZTV ;
+      private   boolean isMagnotemeterAvaliable ;
 
 
         @Override
@@ -56,31 +57,32 @@ import android.widget.TextView;
             sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
             magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-
+checkSensor();
 
         }
+
+    public void checkSensor() {
+        if (magnetometerSensor != null) {
+            magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            isMagnotemeterAvaliable = true;
+        } else
+        {
+            Toast.makeText(requireContext(), "Magnetometer Sensor is not Availiable", Toast.LENGTH_SHORT).show();
+            isMagnotemeterAvaliable = false;
+
+        }
+    }
 
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
 
-            if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-            {
-                magnetometerXTV.setText("X : " +sensorEvent.values[0]);
-                magnetometerYTV.setText("Y : "+sensorEvent.values[1]);
-                magnetometerZTV.setText("Z : "+sensorEvent.values[2]);
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+                magnetometerXTV.setText("X : " + new DecimalFormat("##.#").format(sensorEvent.values[0]));
+                magnetometerYTV.setText("Y : " + new DecimalFormat("##.#").format(sensorEvent.values[1]));
+                magnetometerZTV.setText("Z : " + new DecimalFormat("##.#").format(sensorEvent.values[2]));
 
             }
 
-
-
-
-//            float x =Math.round(sensorEvent.values[0]);
-//            float y =Math.round(sensorEvent.values[1]);
-//            float z =Math.round(sensorEvent.values[2]);
-//
-//            double tesla = Math.sqrt((x*x) + (y*y) + (z*z));
-//
-//            magnetometerTV.setText(tesla  + " μT");
 
         }
 

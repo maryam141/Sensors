@@ -15,12 +15,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 public class ProximityFragment extends Fragment implements SensorEventListener {
 
-    SensorManager sensorManager ;
-    Sensor proximity ;
+   private SensorManager sensorManager ;
+  private   Sensor proximitySensor;
+  private boolean isProximityAvaliable ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,13 +44,25 @@ public class ProximityFragment extends Fragment implements SensorEventListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sensorManager = (SensorManager)getActivity(). getSystemService(Context.SENSOR_SERVICE);
-        proximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        checkSensor();
+    }
+
+    public void checkSensor() {
+        if (proximitySensor != null) {
+            proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+            isProximityAvaliable = true;
+        } else {
+            Toast.makeText(requireContext(), "Proximity Sensor is not Availiable", Toast.LENGTH_SHORT).show();
+            isProximityAvaliable = false;
+
+        }
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        if (sensorEvent.values[0]<proximity.getMaximumRange())
+        if (sensorEvent.values[0]< proximitySensor.getMaximumRange())
         {
             this.getView().setBackgroundColor(Color.BLACK);
         }
@@ -56,7 +70,6 @@ public class ProximityFragment extends Fragment implements SensorEventListener {
         {
             this.getView().setBackgroundColor(Color.GRAY);
         }
-
 
     }
 
@@ -67,7 +80,7 @@ public class ProximityFragment extends Fragment implements SensorEventListener {
     @Override
     public void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, proximity, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override

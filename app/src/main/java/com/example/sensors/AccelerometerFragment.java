@@ -1,7 +1,6 @@
 package com.example.sensors;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,15 +15,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 
 public class AccelerometerFragment extends Fragment implements SensorEventListener {
 
-    SensorManager sensorManager;
-    Sensor sensor;
-    TextView accelerometerXTV ;
-    TextView accelerometerYTV ;
-    TextView accelerometerZTV ;
+   private SensorManager sensorManager;
+   private Sensor accelerometerSensor;
+   private TextView accelerometerXTV ;
+   private TextView accelerometerYTV ;
+   private TextView accelerometerZTV ;
+   private boolean isAccelerometerAvaliable ;
+
 
 
     @Override
@@ -58,8 +62,21 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        checkSensor();
+
+    }
+   public void checkSensor(){
+       if (accelerometerSensor != null){
+           accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+           isAccelerometerAvaliable=true ;
+       }
+       else {
+           Toast.makeText(requireContext(), "Accelerometer Sensor is not Availiable", Toast.LENGTH_SHORT).show();
+           isAccelerometerAvaliable=false;
+
+       }
     }
 
     @Override
@@ -68,9 +85,9 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
 
         if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
         {
-            accelerometerXTV.setText("X : " +sensorEvent.values[0]);
-            accelerometerYTV.setText("Y : "+sensorEvent.values[1]);
-            accelerometerZTV.setText("Z : "+sensorEvent.values[2]);
+            accelerometerXTV.setText("X : " +new DecimalFormat("##.#").format(sensorEvent.values[0]));
+            accelerometerYTV.setText("Y : "+new DecimalFormat("##.#").format(sensorEvent.values[1]));
+            accelerometerZTV.setText("Z : "+new DecimalFormat("##.#").format(sensorEvent.values[2]));
 
         }
 
@@ -87,7 +104,7 @@ public class AccelerometerFragment extends Fragment implements SensorEventListen
     @Override
     public void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
 
     }

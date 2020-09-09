@@ -15,14 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 
 public class TempreatureFragment extends Fragment implements SensorEventListener {
 
-    TextView tempTV;
-    SensorManager sensorManager ;
-    Sensor tempreatureSensor ;
-    boolean isTempSensorAvaliable ;
+  private TextView tempTV;
+  private SensorManager sensorManager ;
+  private Sensor tempreatureSensor ;
+  private boolean isTempSensorAvaliable ;
 
 
 
@@ -50,22 +53,25 @@ public class TempreatureFragment extends Fragment implements SensorEventListener
         sensorManager = (SensorManager)getActivity(). getSystemService(Context.SENSOR_SERVICE);
       tempreatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
 
-        if (tempreatureSensor != null){
+
+checkSensor();
+    }
+    public void checkSensor() {
+
+        if (tempreatureSensor != null) {
             tempreatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-            isTempSensorAvaliable=true ;
-        }
-        else {
-            tempTV.setText("Temprature Sensor is not Availiable");
-            isTempSensorAvaliable=false;
+            isTempSensorAvaliable = true;
+        } else {
+            Toast.makeText(requireContext(), "Temprature Sensor is not Availiable", Toast.LENGTH_SHORT).show();
+            isTempSensorAvaliable = false;
 
         }
-
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        tempTV.setText(sensorEvent.values[0]+"°C");
+        tempTV.setText(new DecimalFormat("##.#").format(sensorEvent.values[0])+"°C");
 
     }
 

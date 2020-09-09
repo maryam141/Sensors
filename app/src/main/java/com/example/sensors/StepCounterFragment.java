@@ -23,10 +23,11 @@ import android.widget.Toast;
 
 public class StepCounterFragment extends Fragment implements SensorEventListener {
 
-  SensorManager sensorManager;
-  Sensor stepCounterSensor;
+ private SensorManager sensorManager;
+ private Sensor stepCounterSensor;
   private boolean run;
-  TextView countTV;
+  private TextView countTV;
+ private boolean isStepCounterAvaliable ;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,19 @@ public class StepCounterFragment extends Fragment implements SensorEventListener
             Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
       //ask for permission
       requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 10);
+    }
+
+    checkSensor();
+  }
+
+  public void checkSensor() {
+    if (stepCounterSensor != null) {
+      stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+      isStepCounterAvaliable = true;
+    } else {
+      Toast.makeText(requireContext(), "Step Counter Sensor is not Availiable", Toast.LENGTH_SHORT).show();
+      isStepCounterAvaliable = false;
+
     }
   }
 
