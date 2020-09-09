@@ -20,6 +20,9 @@ public class HomeFragment extends Fragment {
     Button gyroscopeBtn ;
     Button stepCounterBtn;
     Button lightBtn ;
+    Button tempBtn ;
+    Button magnetometerBtn ;
+    Button gravityFragment ;
 
 
 
@@ -41,6 +44,10 @@ public class HomeFragment extends Fragment {
         gyroscopeBtn = view.findViewById(R.id.gyroscope_btn);
         stepCounterBtn =view.findViewById(R.id.stepCounter_btn);
         lightBtn = view.findViewById(R.id.light_btn);
+        tempBtn = view.findViewById(R.id.temp_btn);
+        magnetometerBtn = view.findViewById(R.id.magnetometer_btn);
+        gravityFragment = view.findViewById(R.id.gravity_btn);
+
         return view ;
     }
 
@@ -78,6 +85,27 @@ public class HomeFragment extends Fragment {
           @Override public void onClick(View view) {
             Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_lightFragment);
           }
+        });
+        tempBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_tempreatureFragment);
+            }
+        });
+        magnetometerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_magnetometerFragment);
+
+            }
+        });
+
+        gravityFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_gravityFragment);
+
+            }
         });
     }
 }

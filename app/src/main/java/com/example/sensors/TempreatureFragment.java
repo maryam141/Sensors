@@ -16,19 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class GyroscopeFragment extends Fragment implements SensorEventListener {
 
-    SensorManager sensorManager;
-    Sensor sensorGyroscope;
-    TextView gyroscoperXTV ;
-    TextView gyroscopeYTV ;
-    TextView gyroscopeZTV ;
+public class TempreatureFragment extends Fragment implements SensorEventListener {
+
+    TextView tempTV;
+    SensorManager sensorManager ;
+    Sensor tempreatureSensor ;
+    boolean isTempSensorAvaliable ;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
 
         }
     }
@@ -36,43 +37,35 @@ public class GyroscopeFragment extends Fragment implements SensorEventListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gyroscope, container, false);
-        gyroscoperXTV=view.findViewById(R.id.gravity_x_tv);
-        gyroscopeYTV=view.findViewById(R.id.gravity_y_tv);
-        gyroscopeZTV=view.findViewById(R.id.gravity_z_tv);
-
+        View view =inflater.inflate(R.layout.fragment_tempreature, container, false);
+        tempTV=view.findViewById(R.id.temp_tv);
         // Inflate the layout for this fragment
         return view ;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        sensorGyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
+        sensorManager = (SensorManager)getActivity(). getSystemService(Context.SENSOR_SERVICE);
+      tempreatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+
+        if (tempreatureSensor != null){
+            tempreatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+            isTempSensorAvaliable=true ;
+        }
+        else {
+            tempTV.setText("Temprature Sensor is not Availiable");
+            isTempSensorAvaliable=false;
+
+        }
 
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        if (sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE)
-        {
-            gyroscoperXTV.setText("X : " +sensorEvent.values[0]);
-            gyroscopeYTV.setText("Y : "+sensorEvent.values[1]);
-            gyroscopeZTV.setText("Z : "+sensorEvent.values[2]);
-
-
-        }
-
+        tempTV.setText(sensorEvent.values[0]+"°C");
 
     }
 
@@ -80,18 +73,22 @@ public class GyroscopeFragment extends Fragment implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, sensorGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+        if (isTempSensorAvaliable){
+            sensorManager.registerListener(this, tempreatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(this);
+        if (isTempSensorAvaliable){
+            sensorManager.unregisterListener(this);
 
+        }
     }
-
 }

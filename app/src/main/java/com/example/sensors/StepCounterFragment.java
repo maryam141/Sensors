@@ -1,5 +1,6 @@
 package com.example.sensors;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -49,6 +51,12 @@ public class StepCounterFragment extends Fragment implements SensorEventListener
     super.onViewCreated(view, savedInstanceState);
     sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
     stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+
+    if(ContextCompat.checkSelfPermission(requireContext(),
+            Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
+      //ask for permission
+      requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 10);
+    }
   }
 
   @Override
@@ -62,7 +70,6 @@ public class StepCounterFragment extends Fragment implements SensorEventListener
 
   @Override
   public void onAccuracyChanged(Sensor sensor, int i) {
-    Log.d("","");
   }
 
   @Override

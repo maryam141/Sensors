@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="90dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
         android:padding="10dp"
@@ -96,6 +96,60 @@
     android:textSize="18sp"
     android:background="@drawable/rounded_button"
     android:textColor="#fff"/>
+
+    <Button
+        android:id="@+id/temp_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/light_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:padding="10dp"
+        android:text="tempreature Sensor"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_button"
+        android:textColor="#fff"/>
+    <Button
+        android:id="@+id/magnetometer_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/temp_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:padding="10dp"
+        android:text="magnetometer Sensor"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_button"
+        android:textColor="#fff"/>
+
+    <Button
+        android:id="@+id/gravity_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/magnetometer_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:padding="10dp"
+        android:text="gravity Sensor"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_button"
+        android:textColor="#fff"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,31 @@
 package com.example.sensors;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
-public class AccelerometerFragment extends Fragment {
+public class AccelerometerFragment extends Fragment implements SensorEventListener {
 
-Accelerometer accelerometer ;
+    SensorManager sensorManager;
+    Sensor sensor;
+    TextView accelerometerXTV ;
+    TextView accelerometerYTV ;
+    TextView accelerometerZTV ;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +39,9 @@ Accelerometer accelerometer ;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_accelerometer, container, false) ;
-
+            accelerometerXTV = view.findViewById(R.id.accelerate_x_tv);
+        accelerometerYTV = view.findViewById(R.id.accelerate_y_tv);
+        accelerometerZTV = view.findViewById(R.id.accelerate_z_tv);
 
         // Inflate the layout for this fragment
         return view;
@@ -36,21 +50,36 @@ Accelerometer accelerometer ;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        accelerometer = new Accelerometer(requireContext());
-        accelerometer.setListner(new Accelerometer.Listner() {
-            @Override
-            public void onTranslation(float tx, float ty, float tz) {
-                if (tx>1.0f)
-                {
-                    AccelerometerFragment.this.getView().setBackgroundColor(Color.CYAN);
 
-                }
-                else if (tx<-1.0f){
-                    AccelerometerFragment.this.getView().setBackgroundColor(Color.BLUE);
 
-                }
-            }
-        });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+
+
+        if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+        {
+            accelerometerXTV.setText("X : " +sensorEvent.values[0]);
+            accelerometerYTV.setText("Y : "+sensorEvent.values[1]);
+            accelerometerZTV.setText("Z : "+sensorEvent.values[2]);
+
+        }
+
+
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
 
@@ -58,14 +87,17 @@ Accelerometer accelerometer ;
     @Override
     public void onResume() {
         super.onResume();
-        accelerometer.register();
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        accelerometer.unregister();
+        sensorManager.unregisterListener(this);
 
     }
+
+
 }

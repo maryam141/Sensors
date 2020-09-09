@@ -45,6 +45,27 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_tempreatureFragment"
+            app:destination="@id/tempreatureFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_magnetometerFragment"
+            app:destination="@id/magnetometerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_gravityFragment"
+            app:destination="@id/gravityFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/proximityFragment"
@@ -71,4 +92,19 @@
     android:name="com.example.sensors.LightFragment"
     android:label="fragment_light"
     tools:layout="@layout/fragment_light" />
+    <fragment
+        android:id="@+id/tempreatureFragment"
+        android:name="com.example.sensors.TempreatureFragment"
+        android:label="fragment_tempreature"
+        tools:layout="@layout/fragment_tempreature" />
+    <fragment
+        android:id="@+id/magnetometerFragment"
+        android:name="com.example.sensors.MagnetometerFragment"
+        android:label="fragment_magnetometer"
+        tools:layout="@layout/fragment_magnetometer" />
+    <fragment
+        android:id="@+id/gravityFragment"
+        android:name="com.example.sensors.GravityFragment"
+        android:label="fragment_gravity"
+        tools:layout="@layout/fragment_gravity" />
 </navigation>

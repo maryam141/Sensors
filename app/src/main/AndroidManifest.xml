@@ -6,6 +6,11 @@
     <uses-feature android:name="android.hardware.Sensor.gyroscope" android:required="true" />
     <uses-feature android:name="android.hardware.Sensor.stepcounter" android:required="true" />
     <uses-feature android:name="android.hardware.Sensor.stepdetector" android:required="true" />
+    <uses-feature android:name="android.hardware.sensor.ambient_temperature" android:required="true" />
+<!--    <uses-feature android:name="android.hardware.sensor.magnetic_field" android:required="true" />-->
+
+
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
 
 
     <application
